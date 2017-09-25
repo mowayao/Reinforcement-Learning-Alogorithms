@@ -32,35 +32,14 @@ class NatureQN(Linear):
         # this information might be useful
         num_actions = self.env.action_space.n
         out = state
-        ##############################################################
-        """
-        TODO: implement the computation of Q values like in the paper
-                https://storage.googleapis.com/deepmind-data/assets/papers/DeepMindNature14236Paper.pdf
-                https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf
-
-              you may find the section "model architecture" of the appendix of the 
-              nature paper particulary useful.
-
-              store your result in out of shape = (batch_size, num_actions)
-
-        HINT: you may find tensorflow.contrib.layers useful (imported)
-              make sure to understand the use of the scope param
-
-              you can use any other methods from tensorflow
-              you are not allowed to import extra packages (like keras,
-              lasagne, cafe, etc.)
-
-        """
-        ##############################################################
-        ################ YOUR CODE HERE - 10-15 lines ################ 
-
-        with tf.variable_scope(scope):
-            
-
-        ##############################################################
-        ######################## END YOUR CODE #######################
+        with tf.variable_scope(scope, reuse=reuse):
+            h1 = layers.conv2d(state, num_outputs=32, kernel_size=8, stride=4)
+            h2 = layers.conv2d(h1, num_outputs=64, kernel_size=4, stride=2)
+            h3 = layers.conv2d(h2, num_outputs=64, kernel_size=4)
+            flatten = layers.flatten(h3)
+            h4 = layers.fully_connected(flatten, 256)
+            out = layers.fully_connected(h4, num_actions)
         return out
-
 
 """
 Use deep Q network for test environment.

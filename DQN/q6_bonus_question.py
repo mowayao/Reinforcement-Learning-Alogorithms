@@ -13,7 +13,28 @@ from q2_linear import Linear
 from configs.q6_bonus_question import config
 
 
-class MyDQN(Linear):
+class DoubleDQN(Linear):
+    def get_q_values_op(self, state, scope, reuse=False):
+        """
+        Returns Q values for all actions
+
+        Args:
+            state: (tf tensor) 
+                shape = (batch_size, img height, img width, nchannels)
+            scope: (string) scope name, that specifies if target network or not
+            reuse: (bool) reuse of variables in the scope
+
+        Returns:
+            out: (tf tensor) of shape = (batch_size, num_actions)
+        """
+        # this information might be useful
+        num_actions = self.env.action_space.n
+        out = state
+       
+
+        return out
+
+class DuelingDQN(Linear):
     """
     Going beyond - implement your own Deep Q Network to find the perfect
     balance between depth, complexity, number of parameters, etc.
@@ -50,25 +71,7 @@ class MyDQN(Linear):
         # this information might be useful
         num_actions = self.env.action_space.n
         out = state
-        ##############################################################
-        """
-        TODO: implement the computation of Q values like in the paper
-                    https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf
-
-        HINT: you may find tensorflow.contrib.layers useful (imported)
-              make sure to understand the use of the scope param
-
-              you can use any other methods from tensorflow
-              you are not allowed to import extra packages (like keras,
-              lasagne, cafe, etc.)
-        """
-        ##############################################################
-        ################ YOUR CODE HERE - 10-15 lines ################ 
         
-        pass
-
-        ##############################################################
-        ######################## END YOUR CODE #######################
         return out
 
 
